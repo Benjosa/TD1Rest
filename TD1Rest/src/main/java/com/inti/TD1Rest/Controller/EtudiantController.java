@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController  //WEB SERVICE
@@ -29,21 +30,10 @@ public class EtudiantController
 	}
 	
 	@PostMapping("/addEtudiant")
-	public String insertEtudiant()
+	public ResponseEntity<Etudiant> saveStudent(@RequestBody Etudiant etudiant)
 	{
-		Etudiant e1 = new Etudiant("test", "test", "test@test", "123456789", "2019");
-		Etudiant e2 = new Etudiant("alice", "alice", "alice@test", "123456789", "2020");
-		Etudiant e3 = new Etudiant("Claire", "Claire", "Claire@test", "123456789", "2021");
-		Etudiant e4 = new Etudiant("titi", "titi", "titi@test", "123456789", "2017");
-		Etudiant e5 = new Etudiant("Anahi", "Anahi", "Anahi@test", "123456789", "2018");
 		
-		er.save(e1);
-		er.save(e2);
-		er.save(e3);
-		er.save(e4);
-		er.save(e5);
-		
-		return "etudiants Enregistrer";
+		return new ResponseEntity<Etudiant>(er.save(etudiant), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/allEtudiants")
