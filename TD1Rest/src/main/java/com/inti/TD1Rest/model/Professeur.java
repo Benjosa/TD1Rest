@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,13 +33,22 @@ public class Professeur
 	private @NonNull Double salaire;
 	
 	@ManyToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "idProfesseur"), 
+	@JoinTable(name = "Professeur_Etudiant", joinColumns = @JoinColumn(name = "idProfesseur"), 
 	inverseJoinColumns = @JoinColumn(name="idEtudiant"))
+	@JsonIgnore
 	List<Etudiant> listeEtudiants;
 	
 	@ManyToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "idProfesseur"), 
+	@JoinTable(name = "Ecole_Professeur", joinColumns = @JoinColumn(name = "idProfesseur"), 
 	inverseJoinColumns = @JoinColumn(name = "idEcole"))
+	@JsonIgnore
 	List<Ecole> listeEcoles;
+
+	@Override
+	public String toString() {
+		return "Professeur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", salaire=" + salaire + "]";
+	}
+	
+	
 
 }

@@ -41,8 +41,9 @@ public class Ecole
 	List<Etudiant> listeEtudiant;
 	
 	@ManyToMany
-	@JoinTable(joinColumns = @JoinColumn(name = "idEcole"), 
+	@JoinTable(name = "Ecole_Professeur", joinColumns = @JoinColumn(name = "idEcole"), 
 	inverseJoinColumns = @JoinColumn(name = "idProfesseur"))
+	@JsonIgnore
 	List<Professeur> listeProfesseurs;
 
 	@Override

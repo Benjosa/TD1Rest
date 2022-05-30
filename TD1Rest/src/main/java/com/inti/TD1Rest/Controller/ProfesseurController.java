@@ -2,7 +2,9 @@ package com.inti.TD1Rest.Controller;
 
 import java.util.List;
 
+import com.inti.TD1Rest.Repository.EcoleRepository;
 import com.inti.TD1Rest.Repository.ProfesseurRepository;
+import com.inti.TD1Rest.model.Ecole;
 import com.inti.TD1Rest.model.Professeur;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class ProfesseurController
 	@Autowired
 	ProfesseurRepository pr;
 	
+	@Autowired
+	EcoleRepository ecoler;
+	
 	@PostMapping("/addProf")
 	public ResponseEntity<Professeur> saveProf(@RequestBody Professeur p)
 	{
@@ -40,9 +45,17 @@ public class ProfesseurController
 	@PutMapping("/uptdateProfesseur/{id}")
 	public String uptdateProfesseur(@RequestBody Professeur p, @PathVariable int id)
 	{
-		Professeur p1 = pr.getReferenceById(id);
 		
-		pr.save(p1);
+		pr.save(p);
+		
+		return "the teacher : " + p + "has been update";
+	}
+	
+	@PutMapping("/uptdateProfesseurWithSchool/{idProf}/{idEcole}")
+	public String uptdateProfesseur(@RequestBody Professeur p, @PathVariable int idProf, @PathVariable int idEcole)
+	{
+		Professeur p1 = pr.getReferenceById(idProf);
+		
 		
 		return "the teacher : " + p1 + "has been update";
 	}
@@ -54,5 +67,7 @@ public class ProfesseurController
 		
 		return "teacher deleted";
 	}
+	
+	
 
 }
