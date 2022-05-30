@@ -2,7 +2,9 @@ package com.inti.TD1Rest.Controller;
 
 import java.util.List;
 
+import com.inti.TD1Rest.Repository.EcoleRepository;
 import com.inti.TD1Rest.Repository.EtudiantRepository;
+import com.inti.TD1Rest.model.Ecole;
 import com.inti.TD1Rest.model.Etudiant;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class EtudiantController
 	
 	@Autowired
 	EtudiantRepository er;
+	
+	@Autowired
+	EcoleRepository ecoleR;
 	
 	
 	@GetMapping("/test")
@@ -65,6 +70,18 @@ public class EtudiantController
 		er.save(e1);
 		
 		return "The student :" + e1 + " has been update";
+	}
+	
+	@PutMapping("/updateStudentWithSchool/{idEtudiant}/{idEcole}")
+	public String updateStudentWithSchool(@RequestBody Etudiant etudiant, @PathVariable int idEtudiant, @PathVariable int idEcole)
+	{
+		 Ecole ecole = ecoleR.getReferenceById(idEcole);
+		 
+		 etudiant.setEcole(ecole);
+		 
+		 er.save(etudiant);
+		
+		return "The student :" + etudiant + " has been update";
 	}
 	
 	
