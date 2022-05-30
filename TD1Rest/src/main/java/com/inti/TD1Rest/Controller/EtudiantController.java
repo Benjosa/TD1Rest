@@ -7,6 +7,8 @@ import com.inti.TD1Rest.model.Etudiant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,10 +47,10 @@ public class EtudiantController
 	}
 	
 	@GetMapping("/allEtudiants")
-	public List<Etudiant> getAll()
+	public ResponseEntity<List<Etudiant>> getAllEtudiants()
 	{
 		
-		return er.findAll();
+		return new ResponseEntity<List<Etudiant>>(er.findAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/deleteEtudiant")
@@ -60,10 +62,10 @@ public class EtudiantController
 	}
 	
 	@GetMapping("/getEtudiant")
-	public Etudiant getEtudiant(@Param("id") int id)
+	public Etudiant getEtudiant()
 	{
 		
-		return er.getById(id);
+		return er.getById(3);
 	}
 	
 	
