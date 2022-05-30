@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,5 +36,10 @@ public class Ecole
 	
 	@OneToMany(mappedBy = "ecole")
 	List<Etudiant> listeEtudiant;
+	
+	@ManyToMany
+	@JoinTable(joinColumns = @JoinColumn(name = "idEcole"), 
+	inverseJoinColumns = @JoinColumn(name = "idProfesseur"))
+	List<Professeur> listeProfesseurs;
 	
 }
