@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.sym.Name;
 
 import lombok.AllArgsConstructor;
@@ -35,11 +37,19 @@ public class Ecole
 	private @NonNull String ville;
 	
 	@OneToMany(mappedBy = "ecole")
+	@JsonIgnore
 	List<Etudiant> listeEtudiant;
 	
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "idEcole"), 
 	inverseJoinColumns = @JoinColumn(name = "idProfesseur"))
 	List<Professeur> listeProfesseurs;
+
+	@Override
+	public String toString() {
+		return "Ecole [id=" + id + ", nom=" + nom + ", adresse=" + adresse + ", cp=" + cp + ", ville=" + ville + "]";
+	}
+	
+	
 	
 }
