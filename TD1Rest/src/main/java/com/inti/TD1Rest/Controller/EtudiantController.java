@@ -7,11 +7,18 @@ import com.inti.TD1Rest.model.Etudiant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController  //WEB SERVICE
 public class EtudiantController 
 {
 	
@@ -27,43 +34,54 @@ public class EtudiantController
 	}
 	
 	@PostMapping("/addEtudiant")
-	public String insertEtudiant()
+	public ResponseEntity<Etudiant> saveStudent(@RequestBody Etudiant etudiant)
 	{
-		Etudiant e1 = new Etudiant("test", "test", "test@test", "123456789", "2019");
-		Etudiant e2 = new Etudiant("alice", "alice", "alice@test", "123456789", "2020");
-		Etudiant e3 = new Etudiant("Claire", "Claire", "Claire@test", "123456789", "2021");
-		Etudiant e4 = new Etudiant("titi", "titi", "titi@test", "123456789", "2017");
-		Etudiant e5 = new Etudiant("Anahi", "Anahi", "Anahi@test", "123456789", "2018");
 		
-		er.save(e1);
-		er.save(e2);
-		er.save(e3);
-		er.save(e4);
-		er.save(e5);
-		
-		return "etudiants Enregistrer";
+		return new ResponseEntity<Etudiant>(er.save(etudiant), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/allEtudiants")
-	public List<Etudiant> getAll()
+	public ResponseEntity<List<Etudiant>> getAllEtudiants()
 	{
 		
-		return er.findAll();
+		return new ResponseEntity<List<Etudiant>>(er.findAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/deleteEtudiant")
-	public String deleteEtudiant()
+	@PutMapping("/updateStudent/{id}")
+	public String updateStudent(@RequestBody Etudiant etudiant, @PathVariable int id)
 	{
-		er.deleteById(1);
+		 Etudiant e1 = er.getReferenceById(id);
+		 
 		
-		return "Etudiant Supprimer";
+		 if(!e1.getNom().equals(etudiant.getNom()))
+		 {
+			 e1.setNom(etudiant.getNom());
+		 }
+		 if(!e1.getPrenom().equals(etudiant.getPrenom())&& etudiant.getPrenom()!= null)
+		 {
+			 e1.setPrenom(etudiant.getPrenom());
+		 }
+		
+		er.save(e1);
+		
+		return "The student :" + e1 + " has been update";
+	}
+	
+	
+	
+	@DeleteMapping("/deleteEtudiant")
+	public String deleteStudent(@RequestParam("id") int id)
+	{
+		er.deleteById(id);
+		
+		return "Student delete";
 	}
 	
 	@GetMapping("/getEtudiant")
-	public Etudiant getEtudiant(@Param("id") int id)
+	public Etudiant getEtudiant()
 	{
 		
-		return er.getById(id);
+		return er.getReferenceById(3);
 	}
 	
 	
