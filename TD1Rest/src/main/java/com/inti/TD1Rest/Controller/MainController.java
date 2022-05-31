@@ -76,8 +76,10 @@ public class MainController
 		 
 		 ecoleR.save(ecole);
 		
-		return "The school :" + ecole + " has been add";
+		return "The school :" + ecole + " has been add to " + prof + " !";
 	}
+	
+	
 	
 	
 }
