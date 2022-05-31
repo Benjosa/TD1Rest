@@ -102,6 +102,12 @@ public class EtudiantController
 	}
 	
 	
+	@GetMapping("/allEtudiantByEcole/{idEcole}")
+	public ResponseEntity<List<Etudiant>> allEtudiantByEcole(@PathVariable int idEcole)
+	{
+		return new ResponseEntity<List<Etudiant>>(er.findAllByIdEcole(idEcole), HttpStatus.OK);
+	}
+	
 	
 	
 

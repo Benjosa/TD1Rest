@@ -73,6 +73,11 @@ public class EcoleController
 		return "school delete";
 	}
 	
+	@GetMapping("/scoolByEmail/{email}")
+	public Ecole getSchoolByEmail(@PathVariable String email)
+	{
+		return er.findSchoolByEmailStudent(email);
+	}
 	
 	
 	
