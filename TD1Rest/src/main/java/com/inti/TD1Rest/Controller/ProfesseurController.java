@@ -68,6 +68,13 @@ public class ProfesseurController
 		return "teacher deleted";
 	}
 	
+	@GetMapping("/getProfBySchoolOrderBySalaire/{id}")
+	public ResponseEntity<List<Professeur>> getProfBySchoolOrderBySalaire(@PathVariable int id)
+	{
+		return new ResponseEntity<List<Professeur>>(pr.getProfBySchoolOrderBySalaire(id), HttpStatus.OK);	
+	
+	}
+	
 	
 
 }

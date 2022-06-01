@@ -79,6 +79,12 @@ public class EcoleController
 		return er.findSchoolByEmailStudent(email);
 	}
 	
+	@GetMapping("/scoolByNomAndPrenom/{nom}/{prenom}")
+	public Ecole getScoolByNomAndPrenom(@PathVariable String nom, @PathVariable String prenom)
+	{
+		return er.findSchoolByNomAndPrenom(nom, prenom);
+	}
+	
 	
 	
 
