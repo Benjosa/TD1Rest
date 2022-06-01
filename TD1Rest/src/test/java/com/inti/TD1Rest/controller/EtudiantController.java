@@ -77,6 +77,18 @@ public class EtudiantController
 		}
 	}
 	
+	@Test
+	public void getAllStudentsByTeacher() {
+		try
+		{
+			mockMvc.perform(get("/getAllStudentsByTeacher").param("id", "1"))
+				.andExpect(status().isOk());
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	
 
 }

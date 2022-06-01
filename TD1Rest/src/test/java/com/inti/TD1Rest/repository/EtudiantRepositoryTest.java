@@ -71,6 +71,15 @@ public class EtudiantRepositoryTest
 		
 	}
 	
+	@Test
+	public void getAllStudentsByTeacher()
+	{
+		//When 
+		List<Etudiant> listeEtudiants =er.getAllStudentsByTeacher(1);
+		
+		// THEN
+		assertThat(listeEtudiants).isNotEmpty();
+	}
 	
 	
 
